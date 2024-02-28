@@ -23,8 +23,7 @@ connection.once('open', async () =>{
       email: getEmail(usernames[i]),
     });
     const numRang = getRandomNumbers(3, usernames.length);
-    console.log(...numRang + " " + usernames[i]);
-    //numRang.forEach(el => console.log(el));
+    // console.log(...numRang + " " + usernames[i]);
   }
   for(let i = 0;i<16; i++){
     thoughts.push(getThought(usernames[Math.floor(Math.random() * usernames.length)]));
@@ -32,6 +31,15 @@ connection.once('open', async () =>{
 
   await User.collection.insertMany(users);
   await Thought.collection.insertMany(thoughts);
+
+  const dbThoughts = await Thought.find();
+  for(let i = 0;i<dbThoughts.length;i++){
+    const dbUser = await User.findOne({username:dbThoughts[i].username});
+    if(dbUser){
+      dbUser.thoughts.push(dbThoughts[i]._id);
+      await dbUser.save();
+    }
+  }
 
   console.log('db seeded🌱');
   process.exit(0);

@@ -1,7 +1,5 @@
 # Social Network API
-This is a repo to host a social network api.
-This API contains users, thoughts, and reactions.
-Api can be utlized to do all CRUD operations on users and thoughts.
+This repository serves as a comprehensive solution for hosting a social network API, encompassing various essential functionalities. Within this API, users can seamlessly interact with features such as user management, thought sharing, and reactions. It facilitates an extensive range of operations, including Create, Read, Update, and Delete (CRUD), empowering users to manage their profiles, share thoughts, and engage with others effectively. With its versatile capabilities, this API provides a robust foundation for building vibrant social networking platforms tailored to diverse user needs and preferences.
 
 [App Demo Video](https://drive.google.com/file/d/1jKf0fX9FEVj_lyelrCxHexxLgsl9s7lK/view?usp=sharing)
 

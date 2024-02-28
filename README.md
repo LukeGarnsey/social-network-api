@@ -10,10 +10,6 @@ To test out api endpoints, first run 'npm run seed' to seed the database.
 Then run 'node server' to start the application.
 The routes will now be usable to test endpoints.
 
-### Examples
-
-![alt text](./screenshots/home.png)![alt text](./screenshots/dashboard.png)![alt text](./screenshots/user.png)
-
 ### npm package
 [Mongoose](https://www.npmjs.com/package/mongoose)  
 [Express](https://www.npmjs.com/package/express)  

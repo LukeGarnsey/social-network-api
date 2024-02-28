@@ -1,10 +1,10 @@
+const { Thought } = require('../models');
 const User = require('../models/User');
 
 module.exports = {
   async getUsers(req, res){
     try{
-      const users = await User.find();
-      console.log(users);
+      const users = await User.find().populate('thoughts');
       if(!users.length)
         return res.status(404).json({message:"No users found"});
 
@@ -15,7 +15,7 @@ module.exports = {
   },
   async getSingleUser(req, res){
     try{
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id).populate('thoughts');
       if(!user)
         return res.status(404).json({message:"No users found"});
 
@@ -49,13 +49,18 @@ module.exports = {
   },
   async deleteUser(req, res){
     try{
+      const user = await User.findById(req.params.id);
+      const username = user.username;
       const result = await User.deleteOne({_id:req.params.id});
       if(!result)
         return res.status(404).json({message:"No user deleted"});
+
+      const thoughtResult = await Thought.deleteMany({username: username});
+      console.log(thoughtResult);
 
       return res.status(200).json({result, message:"User deleted"});
     }catch(err){
       return res.status(500).json(err);
     }
-  }
+  },
 };

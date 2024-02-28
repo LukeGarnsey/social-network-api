@@ -4,7 +4,8 @@ const User = require('../models/User');
 module.exports = {
   async getUsers(req, res){
     try{
-      const users = await User.find().populate('thoughts');
+      const users = await User.find().populate('thoughts').populate('friends')
+      .select('-createdAt -id -__v');
       if(!users.length)
         return res.status(404).json({message:"No users found"});
 
@@ -15,7 +16,7 @@ module.exports = {
   },
   async getSingleUser(req, res){
     try{
-      const user = await User.findById(req.params.id).populate('thoughts');
+      const user = await User.findById(req.params.id).populate('thoughts').populate('friends');
       if(!user)
         return res.status(404).json({message:"No users found"});
 
@@ -63,4 +64,40 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
+  async addFriend(req, res){
+    try{
+      if(req.params.id === req.params.friendID)
+        return res.status(404).json({message: "Cant add yourself as a friend."});
+      const user = await User.findById(req.params.id);
+      if(!user)
+        return res.status(404).json({message:"No users found"});
+      
+      const friend = await User.findById(req.params.friendID);
+      if(friend){
+        if(user.friends.includes(friend._id)){
+          return res.status(404).json({message: `You are already friends with ${friend.username}`})
+        }
+        user.friends.push(friend._id);
+        user.save();
+      }
+      
+      return res.status(200).json(user);
+    }catch(err){
+      return res.status(500).json(err);
+    }
+  },
+  async removeFriend(req, res){
+    try{
+      const user = await User.findById(req.params.id);
+      if(!user)
+        return res.status(404).json({message:"No users found"});
+      
+      user.friends = user.friends.filter(item =>item != req.params.friendID);
+      user.save();
+      
+      return res.status(200).json(user);
+    }catch(err){
+      return res.status(500).json(err);
+    }
+  }
 };

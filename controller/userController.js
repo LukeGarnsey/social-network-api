@@ -57,7 +57,6 @@ module.exports = {
         return res.status(404).json({message:"No user deleted"});
 
       const thoughtResult = await Thought.deleteMany({username: username});
-      console.log(thoughtResult);
 
       return res.status(200).json({result, message:"User deleted"});
     }catch(err){

@@ -3,6 +3,8 @@ This is a repo to host a social network api.
 This API contains users, thoughts, and reactions.
 Api can be utlized to do all CRUD operations on users and thoughts.
 
+[App Demo Video](https://drive.google.com/file/d/1jKf0fX9FEVj_lyelrCxHexxLgsl9s7lK/view?usp=sharing)
+
 ## Install/Local Usage
 This application requires [Node](https://nodejs.org) to be installed.
 Clone the repo, then run 'npm i' inside the directory with the package.json file.
